@@ -12,7 +12,7 @@ using Address for address;
     bytes4 private constant _ERC721_RECEIVED = 0x150b7a02;
 
  //Name Registry 
-    string public name_registry;
+    string  public registryName;
 
 //Number of total tokens that will increment every token creation
     uint256 public totalNumberOfTokens=0;
@@ -21,7 +21,7 @@ using Address for address;
     mapping (uint256 => address) private _tokenOwner;
 
 // Mapping from owner to number of owned token
-    mapping (address => Counters.Counter) private _ownedTokensCount;
+    mapping (address => Counters.Counter) private _ownedTokensCount; 
 
  // Mapping from token ID to approved address
     mapping (uint256 => address) private _tokenApprovals;
@@ -55,10 +55,11 @@ using Address for address;
         }
 
 
-       constructor(string memory _name_registry) public {
+       constructor(string memory _registryName) public {
         // allocate the name_registry
-        name_registry=_name_registry;}
+        registryName=_registryName;}
 
+      
 
     /** 
     This function is responsible of Creation a new Animal ( token) 
