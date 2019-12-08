@@ -68,14 +68,8 @@ class BuyTokensHandler extends Component{
   console.log(erc721Contract.methods.declareAnimal)
     let getData = erc721Contract.methods.declareAnimal(this.userAddress,this.animalRace,this.animalAge).encodeABI() 
     console.log(getData) 
-     web3.eth.sendTransaction({from:this.userAddress, to:ERC721_ADDRESS, 
+     web3.eth.sendTransaction({from:this.userAddress, to:ERC721_ADDRESS,value:"100000000000000000",
      data: getData}); 
-  // const boolResponse= await  erc721Contract.methods.declareAnimal(this.userAddress,this.animalRace,this.animalAge).call()
-  /* erc721Contract.methods.declareAnimal(this.userAddress,this.animalRace,this.animalAge).call((err,buy)=>
-   {console.log({err,buy})}) */
-
-   // console.log(boolResponse)
-    
 
     };
     
@@ -114,6 +108,9 @@ class BuyTokensHandler extends Component{
 </form>
 <p></p>
 <button onClick={this.buyAnimal} >Buy Animal</button>  
+<p></p>
+<p></p>
+<Link to={"/"}>Click here to return to HomePage</Link>
 </div> );
     }}
  export default BuyTokensHandler;
