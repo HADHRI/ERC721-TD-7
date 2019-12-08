@@ -43,19 +43,30 @@ loadUserAddress = (event)=>{
   // Getting the user Address
   this.userAddress=event.target.value  
   };
+
    switchUserTokenIsPressed=async()=>{ 
-  this.setState({userTokensIsPressed:true}) 
+  
   const web3 = new Web3(Web3.givenProvider || "http://localhost:8545")
   const erc721Contract= new web3.eth.Contract(ERC721_ABI,ERC721_ADDRESS)
   //Now we will call the method to know number of token of this User  
- const numberOfTokensOfUser= await erc721Contract.methods._ownedTokensCount(this.userAddress).call()
- this.setState({numberOfTokensOfUser}) 
+  try{
+    const numberOfTokensOfUser= await erc721Contract.methods._ownedTokensCount(this.userAddress).call()
+    this.setState({userTokensIsPressed:true}) 
+    this.setState({numberOfTokensOfUser}) 
+  }
+  catch{
+    this.setState({userTokensIsPressed:false}) 
+    alert("please Verify that your address is correct")
+    console.log("please Verify that your address is correct") 
+    
+  }
   };
 
   renderTokensNumber(props) {
     if (!props.userTokensIsPressed) {
-      return null;
+      return null; 
     }
+
    return (
       <div >
         This user had {props.numberOfTokensOfUser} tokens
@@ -70,9 +81,9 @@ loadUserAddress = (event)=>{
 <div> 
 <input type='text' placeholder='User Address' name='userAddress'
 onChange={this.loadUserAddress}/>
-<button onClick={this.switchUserTokenIsPressed}>User Tokens</button>  
+<button onClick={this.switchUserTokenIsPressed} >User Tokens</button>  
 </div>
-<this.renderTokensNumber userTokensIsPressed={this.state.userTokensIsPressed} numberOfTokensOfUser={this.state.numberOfTokensOfUser} />
+<this.renderTokensNumber userTokensIsPressed={this.state.userTokensIsPressed} numberOfTokensOfUser={this.state.numberOfTokensOfUser} userAddress={this.state.userAddress}/>
 
     
 <p><input type='text' placeholder='Token iD' name='TokenId'/>
