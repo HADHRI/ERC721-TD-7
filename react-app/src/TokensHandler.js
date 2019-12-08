@@ -52,13 +52,11 @@ loadUserAddress = (event)=>{
   try{
     const numberOfTokensOfUser= await erc721Contract.methods._ownedTokensCount(this.userAddress).call()
     this.setState({userTokensIsPressed:true}) 
-    this.setState({numberOfTokensOfUser}) 
+    this.setState({numberOfTokensOfUser})  
   }
   catch{
     this.setState({userTokensIsPressed:false}) 
     alert("please Verify that your address is correct")
-    console.log("please Verify that your address is correct") 
-    
   }
   };
 

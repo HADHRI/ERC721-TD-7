@@ -1,4 +1,4 @@
-export const ERC721_ADDRESS ="0x070997567058c5ac3C3fd4cb539d20df3080F48f"
+export const ERC721_ADDRESS ="0x926dc098796A42bf95Ce95ac0c8deD6e84167d78"
 export const ERC721_ABI =[
 	{
 		"inputs": [
@@ -129,7 +129,7 @@ export const ERC721_ABI =[
 				"type": "bool"
 			}
 		],
-		"payable": true,
+		"payable": false,
 		"stateMutability": "payable",
 		"type": "function"
 	},
