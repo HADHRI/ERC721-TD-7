@@ -21,7 +21,7 @@ using Address for address;
     mapping (uint256 => address) private _tokenOwner;
 
 // Mapping from owner to number of owned token
-    mapping (address => Counters.Counter) private _ownedTokensCount; 
+    mapping (address => Counters.Counter) public _ownedTokensCount; 
 
  // Mapping from token ID to approved address
     mapping (uint256 => address) private _tokenApprovals;
@@ -29,8 +29,8 @@ using Address for address;
  //Animal ID
     uint private _currentId;
     mapping (address => Animal[]) private _animalsOfOwner;
-    mapping (uint => Animal) private _animalsById;
-    mapping (uint => address) private _animalToOwner;
+    mapping (uint => Animal) public _animalsById; 
+    mapping (uint => address) public  _animalToOwner;
 
 
  // Mapping from owner to operator approvals
