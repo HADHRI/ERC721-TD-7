@@ -34,22 +34,31 @@ class TokensHandler extends Component{
    constructor(props){
   super(props)
   
+
  this.state = {network:'',chainId :'',lastBlockNumber:'',
-registryName:'',numberOfTotalTokens:'',userAddress:'',userTokensIsPressed:false,numberOfTokensOfUser:''}
+registryName:'',numberOfTotalTokens:'',userAddress:'',userTokensIsPressed:false,tokenIdIsPressed:false
+,numberOfTokensOfUser:'',tokenId:'',animalId:'',animalAge:'',animalRace:'',animalOwnerAdress:''}
 
   }
 
 loadUserAddress = (event)=>{ 
   // Getting the user Address
   this.userAddress=event.target.value  
+  console.log(this.userAddress)
   };
 
-   switchUserTokenIsPressed=async()=>{ 
+  loadTokenId = (event)=>{ 
+    // Getting the Token Id
+    this.tokenId=event.target.value  
+
+    };
   
+ switchUserTokenIsPressed=async()=>{ 
+     
   const web3 = new Web3(Web3.givenProvider || "http://localhost:8545")
   const erc721Contract= new web3.eth.Contract(ERC721_ABI,ERC721_ADDRESS)
   //Now we will call the method to know number of token of this User  
-  try{
+  try{ 
     const numberOfTokensOfUser= await erc721Contract.methods._ownedTokensCount(this.userAddress).call()
     this.setState({userTokensIsPressed:true}) 
     this.setState({numberOfTokensOfUser})  
@@ -60,6 +69,31 @@ loadUserAddress = (event)=>{
   }
   };
 
+  switchTokenIdIsPressed=async()=>{ 
+  
+    const web3 = new Web3(Web3.givenProvider || "http://localhost:8545")
+    const erc721Contract= new web3.eth.Contract(ERC721_ABI,ERC721_ADDRESS)
+    try{ 
+    //Now we will call the method to know number of token of this User   
+    const  animalObject= await erc721Contract.methods._animalsById(this.tokenId).call()
+    //get the animal owner
+    const animalOwnerAdress= await erc721Contract.methods._animalToOwner(this.tokenId).call()
+    console.log(animalOwnerAdress)
+    //send to function that will show characteristics 
+    console.log(animalObject)  
+      this.setState({animalOwnerAdress}) 
+      this.setState({tokenIdIsPressed:true}) 
+      this.setState({animalId:animalObject['id']})
+      this.setState({animalAge:animalObject['age']})   
+      this.setState({animalRace:animalObject['race']})
+    }
+    catch{
+      this.setState({tokenIdIsPressed:false}) 
+      alert("please Verify that Id is correct")
+    }
+    
+    };
+
   renderTokensNumber(props) {
     if (!props.userTokensIsPressed) {
       return null; 
@@ -68,6 +102,21 @@ loadUserAddress = (event)=>{
    return (
       <div >
         This user had {props.numberOfTokensOfUser} tokens
+      </div>
+    );
+  }
+
+  renderAnimalCharac(props){
+    if (!props.tokenIdIsPressed) {
+      return null; 
+    }  
+    return (
+      <div>
+       <p> Animal Id is {props.animalId}</p> 
+       <p> Animal Age is {props.animalAge}</p> 
+       <p> Animal Race is {props.animalRace}</p>
+    <p>The owner of this animal is {props.animalOwnerAdress}</p> 
+      
       </div>
     );
   }
@@ -84,8 +133,11 @@ onChange={this.loadUserAddress}/>
 <this.renderTokensNumber userTokensIsPressed={this.state.userTokensIsPressed} numberOfTokensOfUser={this.state.numberOfTokensOfUser} userAddress={this.state.userAddress}/>
 
     
-<p><input type='text' placeholder='Token iD' name='TokenId'/>
-<button>Token characteristics</button></p>
+<p><input type='text' placeholder='Token Id' name='TokenId' onChange={this.loadTokenId}/>
+<button onClick={this.switchTokenIdIsPressed}>Show Animal characteristics</button></p>
+<this.renderAnimalCharac   tokenIdIsPressed={this.state.tokenIdIsPressed} animalId={this.state.animalId} 
+animalAge={this.state.animalAge} animalAge={this.state.animalAge} 
+animalRace={this.state.animalRace} animalOwnerAdress={this.state.animalOwnerAdress} />
 <Link to={"/"}>Click here to return to HomePage</Link>
   </div>
   );
