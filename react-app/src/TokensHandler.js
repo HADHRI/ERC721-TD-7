@@ -45,7 +45,6 @@ loadUserAddress = (event)=>{
   };
 
   switchTokenIdIsPressed=async()=>{ 
-  
     const web3 = new Web3(Web3.givenProvider || "http://localhost:8545")
     const erc721Contract= new web3.eth.Contract(ERC721_ABI,ERC721_ADDRESS)
     try{ 

@@ -66,10 +66,15 @@ class BuyTokensHandler extends Component{
   
   // let's declare an Animal ( this methode is payable (0.1ETH))
   console.log(erc721Contract.methods.declareAnimal)
+  try{
     let getData = erc721Contract.methods.declareAnimal(this.userAddress,this.animalRace,this.animalAge).encodeABI() 
     console.log(getData) 
      web3.eth.sendTransaction({from:this.userAddress, to:ERC721_ADDRESS,value:"100000000000000000",
      data: getData}); 
+  }
+  catch{
+    alert('Something went wrong , verify info and retry payment')
+  }
 
     };
     

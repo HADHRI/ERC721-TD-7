@@ -58,13 +58,15 @@ using Address for address;
     Otherwise the transaction fails.
     **/
     function declareAnimal(address to, AnimalType race, Age age)
-        public   returns (bool) {
+        public  payable returns (bool) {
+        require(msg.value >= 100000000000000000);
         _currentId++;
         Animal memory animal = Animal(_currentId, race, age);
         _animalsOfOwner[msg.sender].push(animal);
         _animalsById[_currentId] = animal;
         _animalToOwner[_currentId] = to;
         mintToken(to, _currentId);
+         emit PaymentReceived(_msgSender(), msg.value);
         return true;
     }
 
