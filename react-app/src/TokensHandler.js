@@ -12,7 +12,7 @@ class TokensHandler extends Component{
 
  this.state = {network:'',chainId :'',lastBlockNumber:'',
 registryName:'',numberOfTotalTokens:'',userAddress:'',userTokensIsPressed:false,tokenIdIsPressed:false
-,numberOfTokensOfUser:'',tokenId:'',animalId:'',animalAge:'',animalRace:'',animalOwnerAdress:''}
+,numberOfTokensOfUser:'',tokenId:'',animalId:'',animalAge:'',animalRace:'',animalOwnerAdress:'',ownerBalance:''}
 
   }
 
@@ -53,10 +53,14 @@ loadUserAddress = (event)=>{
     const  animalObject= await erc721Contract.methods._animalsById(this.tokenId).call()
     //get the animal owner
     const animalOwnerAdress= await erc721Contract.methods._animalToOwner(this.tokenId).call()
+
+    //get balance Of owner 
+    const ownerBalance=await erc721Contract.methods.balanceOf(animalOwnerAdress).call()
   //  console.log(animalOwnerAdress)
     //send to function that will show characteristics 
   //  console.log(animalObject)  
       this.setState({animalOwnerAdress}) 
+      this.setState({ownerBalance})
       this.setState({tokenIdIsPressed:true}) 
       this.setState({animalId:animalObject['id']})
       this.setState({animalAge:animalObject['age']})   
@@ -108,7 +112,6 @@ loadUserAddress = (event)=>{
         animalAge="Young"
         break;
       case props.animalAge==1:
-        alert('hh')
         animalAge="Adult"
         break;
       case props.animalAge==2:
@@ -122,6 +125,7 @@ loadUserAddress = (event)=>{
        <p> this animal is  {animalAge}</p> 
        <p> Animal Race is {animalRace}</p>
        <p>The owner of this animal is {props.animalOwnerAdress}</p> 
+       <p>The balance of this owner is {props.ownerBalance}</p>
       
       </div>
     );
@@ -143,7 +147,7 @@ onChange={this.loadUserAddress}/>
 <button onClick={this.switchTokenIdIsPressed}>Show Animal characteristics</button></p>
 <this.renderAnimalCharac   tokenIdIsPressed={this.state.tokenIdIsPressed} animalId={this.state.animalId} 
 animalAge={this.state.animalAge} animalAge={this.state.animalAge} 
-animalRace={this.state.animalRace} animalOwnerAdress={this.state.animalOwnerAdress} />
+animalRace={this.state.animalRace} animalOwnerAdress={this.state.animalOwnerAdress} ownerBalance={this.state.ownerBalance} />
 <Link to={"/"}>Click here to return to HomePage</Link>
   </div>
   );
