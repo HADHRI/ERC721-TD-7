@@ -28,11 +28,11 @@ const erc721Contract= new web3.eth.Contract(ERC721_ABI,ERC721_ADDRESS)
 //this.setState({erc721Contract})
 console.log(erc721Contract.options.address)
 const numberOfTotalTokens = await erc721Contract.methods.totalNumberOfTokens().call()
-const nameRegistry= await erc721Contract.methods.registryName().call()
+const registryName= await erc721Contract.methods.registryName().call()
 this.setState({numberOfTotalTokens})
-this.setState({nameRegistry})
+this.setState({registryName})
 console.log(numberOfTotalTokens)
-console.log(nameRegistry)
+console.log(registryName)
 }
 
 
@@ -54,7 +54,7 @@ return (
 <p> Your network is {this.state.network}</p>
 <p> Chain Id = {this.state.chainId}</p>
 <p> Last Block Number = {this.state.lastBlockNumber}</p>
-<p> The contract name registry is {this.state.nameRegistry}</p>
+<p> The contract name registry is {this.state.registryName}</p>
 <p> the total number of tokens is = {this.state.numberOfTotalTokens}</p>
 <Link to={"/informations/Tokens-and-users"}>Click here to show tokens and user Informations</Link>
 <div>

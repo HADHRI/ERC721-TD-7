@@ -7,11 +7,11 @@ import {ERC721_ABI,ERC721_ADDRESS} from './config'
 class TokensHandler extends Component{
 
   componentWillMount(){
-    this.loadBlockchainData()
+  //  this.loadBlockchainData()
     }
     //Interacting with the blockchain
     //retrieving the chainId and the lastBlockNumber
-    async loadBlockchainData(){
+  /*  async loadBlockchainData(){
     const web3 = new Web3(Web3.givenProvider || "http://localhost:8545")
     //using await because it is a sync function
     const network= await web3.eth.net.getNetworkType()
@@ -29,7 +29,7 @@ class TokensHandler extends Component{
     this.setState({erc721Contract})
     console.log(numberOfTotalTokens)
     console.log(nameRegistry)
-    }
+    }*/
     
    constructor(props){
   super(props)

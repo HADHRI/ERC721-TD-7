@@ -1,5 +1,4 @@
-export const ERC721_ADDRESS ="0x27AcD21d2EDB446f25dc187521eba70Aa6744174"
-
+export const ERC721_ADDRESS ="0x070997567058c5ac3C3fd4cb539d20df3080F48f"
 export const ERC721_ABI =[
 	{
 		"inputs": [
@@ -276,6 +275,99 @@ export const ERC721_ABI =[
 		"outputs": [],
 		"payable": false,
 		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"name": "_animalsById",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "id",
+				"type": "uint256"
+			},
+			{
+				"internalType": "enum ERC721.AnimalType",
+				"name": "race",
+				"type": "uint8"
+			},
+			{
+				"internalType": "enum ERC721.Age",
+				"name": "age",
+				"type": "uint8"
+			},
+			{
+				"internalType": "enum ERC721.Color",
+				"name": "color",
+				"type": "uint8"
+			},
+			{
+				"internalType": "uint256",
+				"name": "rarity",
+				"type": "uint256"
+			},
+			{
+				"internalType": "bool",
+				"name": "isMale",
+				"type": "bool"
+			},
+			{
+				"internalType": "bool",
+				"name": "canBreed",
+				"type": "bool"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"name": "_animalToOwner",
+		"outputs": [
+			{
+				"internalType": "address",
+				"name": "",
+				"type": "address"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "",
+				"type": "address"
+			}
+		],
+		"name": "_ownedTokensCount",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "_value",
+				"type": "uint256"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
 		"type": "function"
 	},
 	{
