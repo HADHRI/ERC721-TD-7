@@ -78,14 +78,14 @@ loadUserAddress = (event)=>{
     const  animalObject= await erc721Contract.methods._animalsById(this.tokenId).call()
     //get the animal owner
     const animalOwnerAdress= await erc721Contract.methods._animalToOwner(this.tokenId).call()
-    console.log(animalOwnerAdress)
+  //  console.log(animalOwnerAdress)
     //send to function that will show characteristics 
-    console.log(animalObject)  
+  //  console.log(animalObject)  
       this.setState({animalOwnerAdress}) 
       this.setState({tokenIdIsPressed:true}) 
       this.setState({animalId:animalObject['id']})
       this.setState({animalAge:animalObject['age']})   
-      this.setState({animalRace:animalObject['race']})
+      this.setState({animalRace:animalObject['race']}) 
     }
     catch{
       this.setState({tokenIdIsPressed:false}) 
@@ -110,11 +110,54 @@ loadUserAddress = (event)=>{
     if (!props.tokenIdIsPressed) {
       return null; 
     }  
+    let animalAge;
+    let animalRace;
+    switch(true) {
+      case props.animalRace==0:
+        animalRace="Cow"
+        break;
+      case props.animalRace==1:
+        animalRace="Horse"
+        break;
+      case props.animalRace==2:
+        animalRace="Chicken"
+        break;
+        case props.animalRace==3:
+        animalRace="Pig"
+        break;
+        case props.animalRace==4:
+        animalRace="Sheep"
+        break;
+        case props.animalRace==5:
+        animalRace="Donkey"
+        break;
+        case props.animalRace==6:
+        animalRace="Rabbit"
+        break;
+        case props.animalRace==7:
+        animalRace="Duck"
+        break;
+      default:
+    }
+
+   switch(true) {
+      case props.animalAge==0:
+        animalAge="Young"
+        break;
+      case props.animalAge==1:
+        alert('hh')
+        animalAge="Adult"
+        break;
+      case props.animalAge==2:
+        animalAge="Old"
+        break;
+      default:
+    }
     return (
       <div>
        <p> Animal Id is {props.animalId}</p> 
-       <p> Animal Age is {props.animalAge}</p> 
-       <p> Animal Race is {props.animalRace}</p>
+       <p> this animal is  {animalAge}</p> 
+       <p> Animal Race is {animalRace}</p>
     <p>The owner of this animal is {props.animalOwnerAdress}</p> 
       
       </div>
