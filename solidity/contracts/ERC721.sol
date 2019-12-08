@@ -10,13 +10,10 @@ using Address for address;
  // Equals to `bytes4(keccak256("onERC721Received(address,address,uint256,bytes)"))`
     // which can be also obtained as `IERC721Receiver(0).onERC721Received.selector`
     bytes4 private constant _ERC721_RECEIVED = 0x150b7a02;
-
  //Name Registry 
     string  public registryName;
-
 //Number of total tokens that will increment every token creation
     uint256 public totalNumberOfTokens=0;
-
  // Mapping from token ID to owner 
     mapping (uint256 => address) private _tokenOwner;
 
@@ -27,7 +24,7 @@ using Address for address;
     mapping (uint256 => address) private _tokenApprovals;
  
  //Animal ID
-    uint private _currentId;
+    uint public _currentId=0;
     mapping (address => Animal[]) private _animalsOfOwner;
     mapping (uint => Animal) public _animalsById; 
     mapping (uint => address) public  _animalToOwner;
@@ -40,18 +37,14 @@ using Address for address;
     event ApprovalForAll(address indexed owner, address indexed operator, bool approved);
     event PaymentReceived(address from, uint256 amount);
 
-    enum AnimalType { Cow, Horse, Chicken, Pig, Sheep, Donkey, Rabbit, Duck }
+    enum AnimalType { Cow, Horse, Chicken}
     enum Age { Young, Adult, Old }
-    enum Color { Brown, Black, White, Red, Blue }
+
 
     struct Animal {
         uint id;
         AnimalType race;
         Age age;
-        Color color;
-        uint rarity;
-        bool isMale;
-        bool canBreed;
         }
 
 
@@ -59,31 +52,26 @@ using Address for address;
         // allocate the name_registry
         registryName=_registryName;}
 
-      
-
     /** 
     This function is responsible of Creation a new Animal ( token) 
     Every one can Call this fucntion but he has to pay 0.1 ETH = 100000000000000000 Wei
     Otherwise the transaction fails.
     **/
-    function declareAnimal(address to, AnimalType race, Age age, Color color, uint rarity, bool isMale, bool canBreed)
-        public payable  returns (bool) {
-        require(msg.value == 100000000000000000);
+    function declareAnimal(address to, AnimalType race, Age age)
+        public   returns (bool) {
         _currentId++;
-        Animal memory animal = Animal(_currentId, race, age, color, rarity, isMale, canBreed);
+        Animal memory animal = Animal(_currentId, race, age);
         _animalsOfOwner[msg.sender].push(animal);
         _animalsById[_currentId] = animal;
         _animalToOwner[_currentId] = to;
         mintToken(to, _currentId);
-        emit PaymentReceived(_msgSender(), msg.value);
         return true;
     }
 
      function mintToken(address to, uint tokenId) internal {
         _mint(to, tokenId);
     }
-
-    // In mint function , we increment the nmber of totalTokens and the ownerToeknsCount.            
+ // In mint function , we increment the nmber of totalTokens and the ownerToeknsCount.            
     function _mint(address to, uint tokenId) internal {
         require(to != address(0), "address 0x0");
         require(!_exists(tokenId), "token already exists");

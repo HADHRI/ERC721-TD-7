@@ -54,7 +54,8 @@ return (
 <p> Last Block Number = {this.state.lastBlockNumber}</p>
 <p> The contract name registry is {this.state.registryName}</p>
 <p> the total number of tokens is = {this.state.numberOfTotalTokens}</p>
-<Link to={"/informations/Tokens-and-users"}>Click here to show tokens and user Informations</Link>
+<p><Link to={"/informations/Tokens-and-users"}>Click here to show tokens and user Informations</Link></p>
+<p><Link to={"/buy-animal"}>Click here to buy new Animal </Link></p>
 <div>
 </div>
 </div>

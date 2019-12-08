@@ -1,4 +1,4 @@
-export const ERC721_ADDRESS ="0x926dc098796A42bf95Ce95ac0c8deD6e84167d78"
+export const ERC721_ADDRESS ="0xB2B875A5e61169a387465CB9e6f78Ac13FEdD2B8"
 export const ERC721_ABI =[
 	{
 		"inputs": [
@@ -99,26 +99,6 @@ export const ERC721_ABI =[
 				"internalType": "enum ERC721.Age",
 				"name": "age",
 				"type": "uint8"
-			},
-			{
-				"internalType": "enum ERC721.Color",
-				"name": "color",
-				"type": "uint8"
-			},
-			{
-				"internalType": "uint256",
-				"name": "rarity",
-				"type": "uint256"
-			},
-			{
-				"internalType": "bool",
-				"name": "isMale",
-				"type": "bool"
-			},
-			{
-				"internalType": "bool",
-				"name": "canBreed",
-				"type": "bool"
 			}
 		],
 		"name": "declareAnimal",
@@ -130,7 +110,7 @@ export const ERC721_ABI =[
 			}
 		],
 		"payable": false,
-		"stateMutability": "payable",
+		"stateMutability": "nonpayable",
 		"type": "function"
 	},
 	{
@@ -302,26 +282,6 @@ export const ERC721_ABI =[
 				"internalType": "enum ERC721.Age",
 				"name": "age",
 				"type": "uint8"
-			},
-			{
-				"internalType": "enum ERC721.Color",
-				"name": "color",
-				"type": "uint8"
-			},
-			{
-				"internalType": "uint256",
-				"name": "rarity",
-				"type": "uint256"
-			},
-			{
-				"internalType": "bool",
-				"name": "isMale",
-				"type": "bool"
-			},
-			{
-				"internalType": "bool",
-				"name": "canBreed",
-				"type": "bool"
 			}
 		],
 		"payable": false,
@@ -343,6 +303,21 @@ export const ERC721_ABI =[
 				"internalType": "address",
 				"name": "",
 				"type": "address"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [],
+		"name": "_currentId",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
 			}
 		],
 		"payable": false,

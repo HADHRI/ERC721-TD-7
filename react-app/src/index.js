@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import TokensHandler from './TokensHandler'
+import BuyTokensHandler from './BuyTokensHandler'
 import * as serviceWorker from './serviceWorker';
 import { Route, BrowserRouter  ,Switch} from 'react-router-dom'
 
@@ -16,6 +17,7 @@ const routing = (
     <Switch>
         <Route exact path="/" component={App} /> 
         <Route path="/informations/Tokens-and-users" component={TokensHandler} />
+        <Route path="/buy-animal" component={BuyTokensHandler}/>
     </Switch>
   );
 

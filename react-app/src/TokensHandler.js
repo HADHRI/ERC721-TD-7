@@ -6,32 +6,7 @@ import {ERC721_ABI,ERC721_ADDRESS} from './config'
 
 class TokensHandler extends Component{
 
-  componentWillMount(){
-  //  this.loadBlockchainData()
-    }
-    //Interacting with the blockchain
-    //retrieving the chainId and the lastBlockNumber
-   async loadBlockchainData(){
-    const web3 = new Web3(Web3.givenProvider || "http://localhost:8545")
-    //using await because it is a sync function
-    const network= await web3.eth.net.getNetworkType()
-    const chainId =await web3.eth.getChainId()
-    const lastBlock= await web3.eth.getBlock('latest')
-    this.setState({chainId : chainId,lastBlockNumber : lastBlock.number,
-    network : network})
-    const erc721Contract= new web3.eth.Contract(ERC721_ABI,ERC721_ADDRESS)
-    //this.setState({erc721Contract})
-    console.log(erc721Contract.options.address)
-    const numberOfTotalTokens = await erc721Contract.methods.totalNumberOfTokens().call()
-    const nameRegistry= await erc721Contract.methods.registryName().call()
-    this.setState({numberOfTotalTokens})
-    this.setState({nameRegistry})
-    this.setState({erc721Contract})
-    console.log(numberOfTotalTokens)
-    console.log(nameRegistry)
-    }
-    
-   constructor(props){
+  constructor(props){
   super(props)
   
 
@@ -125,18 +100,6 @@ loadUserAddress = (event)=>{
         case props.animalRace==3:
         animalRace="Pig"
         break;
-        case props.animalRace==4:
-        animalRace="Sheep"
-        break;
-        case props.animalRace==5:
-        animalRace="Donkey"
-        break;
-        case props.animalRace==6:
-        animalRace="Rabbit"
-        break;
-        case props.animalRace==7:
-        animalRace="Duck"
-        break;
       default:
     }
 
@@ -158,7 +121,7 @@ loadUserAddress = (event)=>{
        <p> Animal Id is {props.animalId}</p> 
        <p> this animal is  {animalAge}</p> 
        <p> Animal Race is {animalRace}</p>
-    <p>The owner of this animal is {props.animalOwnerAdress}</p> 
+       <p>The owner of this animal is {props.animalOwnerAdress}</p> 
       
       </div>
     );
