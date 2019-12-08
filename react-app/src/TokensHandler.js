@@ -11,7 +11,7 @@ class TokensHandler extends Component{
     }
     //Interacting with the blockchain
     //retrieving the chainId and the lastBlockNumber
-  /*  async loadBlockchainData(){
+   async loadBlockchainData(){
     const web3 = new Web3(Web3.givenProvider || "http://localhost:8545")
     //using await because it is a sync function
     const network= await web3.eth.net.getNetworkType()
@@ -29,13 +29,13 @@ class TokensHandler extends Component{
     this.setState({erc721Contract})
     console.log(numberOfTotalTokens)
     console.log(nameRegistry)
-    }*/
+    }
     
    constructor(props){
   super(props)
   
  this.state = {network:'',chainId :'',lastBlockNumber:'',
-registryName:'',numberOfTotalTokens:'',userAddress:'',userTokensIsPressed:false}
+registryName:'',numberOfTotalTokens:'',userAddress:'',userTokensIsPressed:false,numberOfTokensOfUser:''}
 
   }
 
@@ -43,20 +43,22 @@ loadUserAddress = (event)=>{
   // Getting the user Address
   this.userAddress=event.target.value  
   };
-  switchUserTokenIsPressed=()=>{ 
+   switchUserTokenIsPressed=async()=>{ 
   this.setState({userTokensIsPressed:true}) 
   const web3 = new Web3(Web3.givenProvider || "http://localhost:8545")
   const erc721Contract= new web3.eth.Contract(ERC721_ABI,ERC721_ADDRESS)
   //Now we will call the method to know number of token of this User  
-
+ const numberOfTokensOfUser= await erc721Contract.methods._ownedTokensCount(this.userAddress).call()
+ this.setState({numberOfTokensOfUser}) 
   };
+
   renderTokensNumber(props) {
     if (!props.userTokensIsPressed) {
       return null;
     }
    return (
       <div >
-        TokensNumber is 
+        This user had {props.numberOfTokensOfUser} tokens
       </div>
     );
   }
@@ -70,7 +72,7 @@ loadUserAddress = (event)=>{
 onChange={this.loadUserAddress}/>
 <button onClick={this.switchUserTokenIsPressed}>User Tokens</button>  
 </div>
-<this.renderTokensNumber userTokensIsPressed={this.state.userTokensIsPressed}  />
+<this.renderTokensNumber userTokensIsPressed={this.state.userTokensIsPressed} numberOfTokensOfUser={this.state.numberOfTokensOfUser} />
 
     
 <p><input type='text' placeholder='Token iD' name='TokenId'/>

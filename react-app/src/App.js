@@ -13,7 +13,6 @@ componentWillMount(){
 this.loadBlockchainData()
 }
 
-
 //Interacting with the blockchain
 //retrieving the chainId and the lastBlockNumber
 async loadBlockchainData(){
@@ -25,7 +24,6 @@ const lastBlock= await web3.eth.getBlock('latest')
 this.setState({chainId : chainId,lastBlockNumber : lastBlock.number,
 network : network})
 const erc721Contract= new web3.eth.Contract(ERC721_ABI,ERC721_ADDRESS)
-//this.setState({erc721Contract})
 console.log(erc721Contract.options.address)
 const numberOfTotalTokens = await erc721Contract.methods.totalNumberOfTokens().call()
 const registryName= await erc721Contract.methods.registryName().call()
